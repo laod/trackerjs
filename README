@@ -1,0 +1,19 @@
+trackerjs - A nodejs-based BitTorrent tracker
+
+pre-reqs: node
+
+Clone the repo
+cd trackerjs
+node tracker.js
+
+Fair warning: this was an exercise to learn more about node and js. The code
+is terrible, barely works (or may not work for anything but my test), and
+implements the bare minimum necessary to allow BT peers to talk to one
+another.
+
+The most horrible hack can be found in byte_array.js. Does js truly not have
+a binary-safe datatype?
+
+I welcome code or conceptual contributions.
+
+It borrows from Anton Ekblad's bencode.js. Thanks to him.

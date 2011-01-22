@@ -35,7 +35,7 @@ byteArray.prototype.length = function length(){
 byteArray.prototype.parseString = function parseString(str,enc){
   // FIXME: more/better encodings
   enc || (enc = 'url');
-  this._ba = new Array();
+
   var i = 0, i2 = 0;
   var chars = str.split('');
   var new_array = new Array();

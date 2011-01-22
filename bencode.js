@@ -147,11 +147,11 @@ function bstring(str) {
 
 // bencode a byteArray, binary-safe version of bstring
 function bba(oba) {
-  console.log('bba oba:',oba.toString());
+  //console.log('bba oba:',oba.toString());
   var nba = new ba.byteArray();
   nba.appendString(oba.length().toString() + ':');
   nba.appendByteArray(oba);
-  console.log('bba:',nba.toString());
+  //console.log('bba:',nba.toString());
   return nba;
 }
 

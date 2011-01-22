@@ -2,9 +2,14 @@ trackerjs - A nodejs-based BitTorrent tracker
 
 pre-reqs: node
 
-Clone the repo
-cd trackerjs
-node tracker.js
+ Clone the repo
+ cd trackerjs
+ node tracker.js
+
+Obviously you will need torrents that lists your new tracker. In linux I
+prefer mktorrent:
+
+ mktorrent -a http://<yourhost>:8214/announce <file or dir>
 
 Fair warning: this was an exercise to learn more about node and js. The code
 is terrible, barely works (or may not work for anything but my test), and

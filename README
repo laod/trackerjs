@@ -6,10 +6,10 @@ pre-reqs: node
  cd trackerjs
  node tracker.js
 
-Obviously you will need torrents that lists your new tracker. In linux I
+Obviously you will need torrents that list your new tracker. In linux I
 prefer mktorrent:
 
- mktorrent -a http://<yourhost>:8214/announce <file or dir>
+ mktorrent -a http://yourhost:8214/announce <file or dir>
 
 Fair warning: this was an exercise to learn more about node and js. The code
 is terrible, barely works (or may not work for anything but my test), and
@@ -22,3 +22,17 @@ a binary-safe datatype?
 I welcome code or conceptual contributions.
 
 It borrows from Anton Ekblad's bencode.js. Thanks to him.
+
+TODO:
+
+ * fix host/ip handling
+
+ * Configuration
+
+ * tests
+
+ * something better than byteArray.
+
+ * Stats tracking and eventual persistence for a companion index project
+
+ * IPv6 extensions

@@ -4,6 +4,7 @@ var net  = require('net');
 var qs  = require('querystring');
 var bencode = require('./bencode');
 var ba = require('./byte_array');
+var config = require('./config').config;
 
 var peer_state_by_torrent = {};
 
@@ -25,7 +26,7 @@ http.createServer(function (req, res) {
   }
 
 //}).listen(8124, "127.0.0.1");
-}).listen(8124);
+}).listen(config.listen.port, config.listen.address);
 
 // Squawk to the console periodically. This will get noisy quickly
 setInterval(function(){
@@ -35,19 +36,19 @@ setInterval(function(){
 // Schedule missing peer removal
 setInterval( function(){
   var now = new Date();
-  console.log('House-keeping running. Time:',now);
+//  console.log('House-keeping running. Time:',now);
   
   for(var torrent in peer_state_by_torrent){
     for(var peer in peer_state_by_torrent[torrent]){
       if('last_announce' in peer_state_by_torrent[torrent][peer]){
-        if( (now - peer_state_by_torrent[torrent][peer].last_announce) > 3600*1000){
-          console.log('Dead peer:',peer,peer_state_by_torrent[torrent][peer].last_announce);
+        if( (now - peer_state_by_torrent[torrent][peer].last_announce) > config.housekeeping.expire_after*1000){
+          console.log('Pruning dead peer:',peer,peer_state_by_torrent[torrent][peer].last_announce);
           delete peer_state_by_torrent[torrent][peer];
         }
       }
     }
   }
-}, 30*1000);
+}, config.housekeeping.frequency*1000);
 
 // Parse a query string into a map
 // map[string key] = byteArray value
@@ -114,7 +115,8 @@ var track = function(query,res){
   var ip = query.may_have('ip',query.peer_ip);
   var ip_str = ip.toString();
   var ev = query.may_have('event','announce');
-  var compact = query['compact'] == 1 ? true : false;
+  console.log('Event:',ev.toString());
+  var compact = query['compact'].toString() == '1' ? true : false;
 
   var ip_port = ip+':'+port;
 
@@ -127,7 +129,7 @@ var track = function(query,res){
   if( !(ip_port in peer_state_by_torrent[torrent_key]) ){
     var port_int = parseInt(port.toString());
     peer_state_by_torrent[torrent_key][ip_port] = {'compact': packIPAndPort(ip_str,port_int),'peer_id': peer_id};
-  } else if (ev == 'stopped'){
+  } else if (ev.toString() == 'stopped'){
     delete peer_state_by_torrent[torrent_key][ip_port];
   } else {
     // check if client has missed too many announces

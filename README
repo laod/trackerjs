@@ -4,12 +4,13 @@ pre-reqs: node
 
  Clone the repo
  cd trackerjs
+ edit config.js
  node tracker.js
 
 Obviously you will need torrents that list your new tracker. In linux I
 prefer mktorrent:
 
- mktorrent -a http://yourhost:8214/announce <file or dir>
+ mktorrent -a http://yourhost:port/announce <file or dir>
 
 Fair warning: this was an exercise to learn more about node and js. The code
 is terrible, barely works (or may not work for anything but my test), and
@@ -27,12 +28,14 @@ TODO:
 
  * fix host/ip handling
 
- * Configuration
-
  * tests
+
+ * implement peer list selection and numwant
 
  * something better than byteArray.
 
  * Stats tracking and eventual persistence for a companion index project
 
  * IPv6 extensions
+
+ * Better Configuration

@@ -1,9 +1,8 @@
-var TRACKERJS = function() {
+var TRACKERJS = (function() {
 
   var http    = require('http'),
       url     = require('url'),
       net     = require('net'),
-      qs      = require('querystring'),
       bencode = require('./bencode'),
       ba      = require('./byte_array'),
       config  = require('./config').config;
@@ -199,8 +198,8 @@ var TRACKERJS = function() {
             delete peer_state_by_torrent[torrent][peer];
           }
         }
-      })
+      });
     });
   }, config.housekeeping.frequency*1000);
 
-}();
+}());
